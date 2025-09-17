@@ -73,61 +73,8 @@
         <div id="tab-content-container">
             <!-- LLM Content -->
             <div id="llm" class="tab-content active prose max-w-none">
-                <div class="space-y-8">
-                    <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                        <h3 class="text-xl font-semibold mb-3">What is the difference between GPT, BERT, and T5?</h3>
-                        <p>These three models are all based on the Transformer architecture but differ fundamentally in their design and purpose.</p>
-                        
-                        <h4 class="font-semibold mt-4">1. Core Architecture:</h4>
-                        <ul>
-                            <li><strong>GPT (Generative Pre-trained Transformer):</strong> A <strong>decoder-only</strong> model. It's designed for generating text by predicting the next word in a sequence based on the previous words (left-to-right context).</li>
-                            <li><strong>BERT (Bidirectional Encoder Representations from Transformers):</strong> An <strong>encoder-only</strong> model. It excels at understanding text by considering the full context of a word, looking at both words before and after it simultaneously.</li>
-                            <li><strong>T5 (Text-to-Text Transfer Transformer):</strong> Uses a full <strong>encoder-decoder</strong> architecture. It's a versatile model that frames every NLP task as a "text-to-text" problem, where an input text is transformed into a target text.</li>
-                        </ul>
-
-                        <h4 class="font-semibold mt-4">2. Pre-training Objectives:</h4>
-                        <ul>
-                            <li><strong>GPT:</strong> Trained on **Causal Language Modeling**—predicting the next token in a sequence.</li>
-                            <li><strong>BERT:</strong> Trained on two tasks: **Masked Language Modeling** (predicting a hidden word in a sentence) and **Next Sentence Prediction** (determining if two sentences are sequential).</li>
-                            <li><strong>T5:</strong> Trained with a **denoising objective**. Spans of text in the input are corrupted (masked), and the model learns to reconstruct the original, uncorrupted text.</li>
-                        </ul>
-
-                        <h4 class="font-semibold mt-4">3. Use Cases:</h4>
-                        <div class="overflow-x-auto">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Feature</th>
-                                        <th>GPT</th>
-                                        <th>BERT</th>
-                                        <th>T5</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Primary Strength</strong></td>
-                                        <td>Text Generation</td>
-                                        <td>Text Understanding</td>
-                                        <td>Versatility & Transfer Learning</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Best For</strong></td>
-                                        <td>Creative writing, chatbots, content creation</td>
-                                        <td>Sentiment analysis, Q&A, search queries</td>
-                                        <td>Summarization, translation, multi-task applications</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p class="mt-4">In short: use <strong>GPT</strong> to write, <strong>BERT</strong> to read and understand, and <strong>T5</strong> for a flexible tool that can do both across many different tasks.</p>
-                    </div>
-
-                    <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                        <h3 class="text-xl font-semibold mb-3">What is the Transformer architecture and its key component?</h3>
-                        <p>The Transformer architecture, introduced in the 2017 paper "Attention Is All You Need," is a neural network design that has become the foundation for most modern large language models. It was created to overcome the limitations of sequential data processing found in earlier models like RNNs and LSTMs.</p>
-                        <p>The key innovation of the Transformer is the <strong>self-attention mechanism</strong>.</p>
-                        <p><strong>Self-Attention:</strong> This mechanism allows the model to weigh the importance of different words in an input sequence when processing a specific word. Instead of processing words one by one, it can look at all other words in the sentence simultaneously. For each word, it calculates three vectors: a <strong>Query</strong>, a <strong>Key</strong>, and a <strong>Value</strong>. By comparing the Query vector of the current word with the Key vectors of all other words, it generates an "attention score" that determines how much focus to place on each word when creating the output representation for the current word. This allows the model to capture long-range dependencies and understand complex grammatical structures and context.</p>
-                    </div>
+                <div id="llm-content" class="space-y-8">
+                    <!-- Q&A will be dynamically inserted here -->
                 </div>
             </div>
 
@@ -142,60 +89,15 @@
                 <!-- Sub-tab Content -->
                 <div id="sub-tab-content-container" class="prose max-w-none">
                     <!-- RAG Content -->
-                    <div id="rag" class="sub-tab-content active space-y-8">
-                        <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-xl font-semibold mb-3">What is Retrieval-Augmented Generation (RAG)?</h3>
-                            <p>RAG is a technique that enhances the capabilities of Large Language Models (LLMs) by grounding them in external, up-to-date, or proprietary information. Instead of relying solely on its pre-trained knowledge (which can be outdated or generic), the LLM is given access to a knowledge base to retrieve relevant information before generating a response.</p>
-                            <p>This process significantly reduces model hallucinations, improves the factual accuracy of responses, and allows the LLM to answer questions about specific domains it wasn't originally trained on.</p>
-                        </div>
-                        <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-xl font-semibold mb-3">What are the core components of a RAG system?</h3>
-                            <p>A typical RAG system has two main stages: Retrieval and Generation.</p>
-                            <ol>
-                                <li><strong>Indexing/Data Preparation (Offline):</strong>
-                                    <ul>
-                                        <li><strong>Data Loading:</strong> Documents are loaded from various sources.</li>
-                                        <li><strong>Chunking:</strong> Documents are split into smaller, manageable chunks.</li>
-                                        <li><strong>Embedding:</strong> Each chunk is converted into a numerical vector representation (an embedding) using an embedding model.</li>
-                                        <li><strong>Storage:</strong> These embeddings and their corresponding text chunks are stored in a specialized <strong>vector database</strong>.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Retrieval and Generation (Online):</strong>
-                                    <ul>
-                                        <li><strong>User Query:</strong> The user submits a prompt.</li>
-                                        <li><strong>Query Embedding:</strong> The user's query is also converted into an embedding using the same model.</li>
-                                        <li><strong>Retrieval:</strong> The system performs a similarity search (e.g., cosine similarity) in the vector database to find the text chunks with embeddings most similar to the query embedding.</li>
-                                        <li><strong>Augmentation:</strong> The retrieved chunks of text are combined with the original user query to form an augmented prompt.</li>
-                                        <li><strong>Generation:</strong> This augmented prompt is fed to the LLM, which then generates a final answer based on both the original question and the provided context.</li>
-                                    </ul>
-                                </li>
-                            </ol>
+                    <div id="rag" class="sub-tab-content active">
+                        <div id="rag-content" class="space-y-8">
+                            <!-- Q&A will be dynamically inserted here -->
                         </div>
                     </div>
-
                     <!-- Agentic Content -->
-                    <div id="agentic" class="sub-tab-content space-y-8">
-                        <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-xl font-semibold mb-3">What is an AI Agent?</h3>
-                            <p>An AI agent is an autonomous system that can perceive its environment, make decisions, and take actions to achieve specific goals. Unlike traditional models that just respond to a prompt, an agent uses an LLM as its core "reasoning engine" to create and execute a multi-step plan.</p>
-                            <p>An agent typically consists of:</p>
-                            <ul>
-                                <li><strong>LLM Core:</strong> The reasoning brain that makes decisions.</li>
-                                <li><strong>Memory:</strong> Short-term and long-term storage to keep track of its progress and learnings.</li>
-                                <li><strong>Tools:</strong> A set of functions or APIs the agent can call to interact with the outside world (e.g., a search engine, a calculator, a database query tool).</li>
-                                <li><strong>Planning Module:</strong> The ability to break down a complex goal into a sequence of smaller, actionable steps.</li>
-                            </ul>
-                        </div>
-                        <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-xl font-semibold mb-3">Explain the ReAct (Reasoning and Acting) framework.</h3>
-                            <p>ReAct is a popular framework for building AI agents that synergizes reasoning and acting. Instead of just thinking and then acting, or acting without thinking, ReAct interleaves these two processes. The LLM generates a chain of thought that includes both a reasoning trace and a specific action to take.</p>
-                            <p>The process follows a loop:</p>
-                            <ol>
-                                <li><strong>Thought:</strong> The LLM analyzes the current goal and state, and reasons about what the next logical step should be.</li>
-                                <li><strong>Action:</strong> Based on its thought, the LLM decides to use a specific tool with certain inputs (e.g., `Search('current weather in Paris')`).</li>
-                                <li><strong>Observation:</strong> The agent executes the action and gets a result (e.g., `Result: '18°C, cloudy'`).</li>
-                            </ol>
-                            <p>This observation is then fed back into the loop, starting a new "Thought" step. This cycle continues until the agent determines that the original goal has been accomplished.</p>
+                    <div id="agentic" class="sub-tab-content">
+                         <div id="agentic-content" class="space-y-8">
+                            <!-- Q&A will be dynamically inserted here -->
                         </div>
                     </div>
                 </div>
@@ -203,28 +105,8 @@
 
             <!-- AWS Content -->
             <div id="aws" class="tab-content prose max-w-none">
-                <div class="space-y-8">
-                    <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                        <h3 class="text-xl font-semibold mb-3">What is the difference between Amazon Bedrock and Amazon SageMaker for GenAI?</h3>
-                        <p>Both are key AWS services for building with generative AI, but they serve different needs.</p>
-                        <ul>
-                            <li><strong>Amazon Bedrock:</strong> This is a fully managed service that provides easy access to a variety of high-performing foundation models (FMs) from providers like Anthropic, Cohere, AI21 Labs, and Amazon itself via a single API. It's the fastest way to start building and scaling GenAI applications without managing any infrastructure. Bedrock is ideal for developers who want to integrate existing FMs into their applications quickly.</li>
-                            <li><strong>Amazon SageMaker:</strong> This is a comprehensive machine learning platform for the entire ML lifecycle. For GenAI, SageMaker gives you full control. You can use SageMaker JumpStart to access and deploy open-source FMs, or you can use SageMaker to train, fine-tune, and deploy your own custom models from scratch. It's for data scientists and ML engineers who need maximum flexibility, control, and customization over their models and infrastructure.</li>
-                        </ul>
-                        <p><strong>Analogy:</strong> Bedrock is like a high-end restaurant with a curated menu of excellent dishes (FMs) you can order. SageMaker is like a professional kitchen with all the raw ingredients and tools, allowing you to cook any dish you can imagine.</p>
-                    </div>
-
-                    <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-                        <h3 class="text-xl font-semibold mb-3">What AWS services are key for building a serverless RAG pipeline?</h3>
-                        <p>A serverless RAG pipeline on AWS can be built efficiently using a combination of managed services to handle data ingestion, storage, retrieval, and generation.</p>
-                        <ol>
-                            <li><strong>Data Ingestion & Storage:</strong> <strong>Amazon S3</strong> is the standard for storing raw source documents. You can use <strong>AWS Lambda</strong> functions triggered by S3 events to automate the processing of new documents.</li>
-                            <li><strong>Data Processing (Chunking & Embedding):</strong> An <strong>AWS Lambda</strong> function or an <strong>AWS Glue</strong> job can be used to load documents, split them into chunks, and call an embedding model (e.g., Amazon Titan Text Embeddings via Bedrock) to generate vectors.</li>
-                            <li><strong>Vector Storage & Retrieval:</strong> <strong>Amazon OpenSearch Service</strong> with the k-NN plugin or <strong>Amazon Kendra</strong> (which has built-in semantic search capabilities) can act as the vector database to store embeddings and perform similarity searches. Newer options like Amazon RDS for PostgreSQL with the `pgvector` extension are also viable.</li>
-                            <li><strong>Application Logic:</strong> <strong>AWS Lambda</strong> and <strong>Amazon API Gateway</strong> are used to create the serverless backend. The API Gateway exposes an endpoint that triggers a Lambda function. This function takes the user query, converts it to an embedding, queries the vector database (OpenSearch/Kendra), and then calls the LLM.</li>
-                            <li><strong>Generation:</strong> The final, augmented prompt is sent to a foundation model hosted on <strong>Amazon Bedrock</strong> for the final answer generation.</li>
-                        </ol>
-                    </div>
+                <div id="aws-content" class="space-y-8">
+                    <!-- Q&A will be dynamically inserted here -->
                 </div>
             </div>
         </div>
@@ -238,59 +120,82 @@
             const subTabs = document.querySelectorAll('.sub-tab-btn');
             const subTabContents = document.querySelectorAll('.sub-tab-content');
 
+            // Function to create a Q&A card
+            function createQACard(qaItem) {
+                const card = document.createElement('div');
+                card.className = 'p-6 bg-white rounded-lg shadow-sm border border-gray-200';
+                card.innerHTML = `
+                    <h3 class="text-xl font-semibold mb-3">${qaItem.question}</h3>
+                    <div>${qaItem.answer}</div>
+                `;
+                return card;
+            }
+            
+            // Function to render content into a container
+            function renderContent(container, data) {
+                container.innerHTML = ''; // Clear existing content
+                data.forEach(qaItem => {
+                    const card = createQACard(qaItem);
+                    container.appendChild(card);
+                });
+            }
+
+            // Fetch data and populate tabs
+            async function loadData() {
+                try {
+                    const response = await fetch('./qa-data.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    // Populate content containers
+                    renderContent(document.getElementById('llm-content'), data.llm);
+                    renderContent(document.getElementById('rag-content'), data.genai.rag);
+                    renderContent(document.getElementById('agentic-content'), data.genai.agentic);
+                    renderContent(document.getElementById('aws-content'), data.aws);
+
+                } catch (error) {
+                    console.error("Could not load Q&A data:", error);
+                    document.getElementById('llm-content').innerHTML = `<p class="text-red-500">Error loading content. Please check the console.</p>`;
+                }
+            }
+
+
             function switchMainTab(tabId) {
                 mainTabs.forEach(tab => {
-                    if (tab.dataset.tab === tabId) {
-                        tab.classList.add('active');
-                    } else {
-                        tab.classList.remove('active');
-                    }
+                    tab.classList.toggle('active', tab.dataset.tab === tabId);
                 });
 
                 tabContents.forEach(content => {
-                    if (content.id === tabId) {
-                        content.classList.add('active');
-                    } else {
-                        content.classList.remove('active');
-                    }
+                    content.classList.toggle('active', content.id === tabId);
                 });
             }
 
             function switchSubTab(subTabId) {
                 subTabs.forEach(tab => {
-                    if (tab.dataset.subtab === subTabId) {
-                        tab.classList.add('active');
-                    } else {
-                        tab.classList.remove('active');
-                    }
+                    tab.classList.toggle('active', tab.dataset.subtab === subTabId);
                 });
 
                 subTabContents.forEach(content => {
-                    if (content.id === subTabId) {
-                        content.classList.add('active');
-                    } else {
-                        content.classList.remove('active');
-                    }
+                    content.classList.toggle('active', content.id === subTabId);
                 });
             }
 
             mainTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    switchMainTab(tab.dataset.tab);
-                });
+                tab.addEventListener('click', () => switchMainTab(tab.dataset.tab));
             });
 
             subTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    switchSubTab(tab.dataset.subtab);
-                });
+                tab.addEventListener('click', () => switchSubTab(tab.dataset.subtab));
             });
 
-            // Initialize with the first tab active
+            // Initial setup
+            loadData();
             switchMainTab('llm');
-            // Initialize with the first sub-tab active
             switchSubTab('rag');
         });
     </script>
 </body>
 </html>
+
