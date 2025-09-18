@@ -1,89 +1,130 @@
 {
 "llm": [
   {"question": "How can you evaluate the performance of large language models?",
-  "answer": "<p> # Evaluating the Performance of Large Language Models (LLMs)
+  "answer": "<p> <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluating the Performance of LLMs</title>
+</head>
+<body>
+  <h1>Evaluating the Performance of Large Language Models (LLMs)</h1>
 
-Evaluating the performance of **Large Language Models (LLMs)** is tricky because they operate in open-ended domains, but there are well-established approaches. Evaluation can be **quantitative** (automatic metrics) or **qualitative** (human judgment), depending on the use case. Here’s a structured overview:
+  <p>
+    Evaluating the performance of <strong>Large Language Models (LLMs)</strong> is tricky because they operate in open-ended domains,
+    but there are well-established approaches. Evaluation can be <strong>quantitative</strong> (automatic metrics) or
+    <strong>qualitative</strong> (human judgment), depending on the use case. Here’s a structured overview:
+  </p>
 
----
+  <hr>
 
-## 1. Intrinsic Evaluation (Direct Model Performance)
+  <h2>1. Intrinsic Evaluation (Direct Model Performance)</h2>
+  <p>These measure how well the LLM performs on language tasks, independent of downstream applications.</p>
+  <ul>
+    <li><strong>Perplexity / Log-likelihood</strong>
+      <ul>
+        <li>Measures how well the model predicts text sequences.</li>
+        <li>Lower perplexity = better next-token prediction.</li>
+        <li>Mostly used in research/pretraining; not always aligned with human judgment.</li>
+      </ul>
+    </li>
+    <li><strong>Benchmark Datasets</strong>
+      <ul>
+        <li>Standard test suites like <strong>MMLU, BIG-Bench, HellaSwag, ARC, TruthfulQA</strong>, etc.</li>
+        <li>Cover reasoning, knowledge, commonsense, coding, and factual accuracy.</li>
+      </ul>
+    </li>
+    <li><strong>Accuracy / F1 / BLEU / ROUGE / METEOR / BERTScore</strong>
+      <ul>
+        <li>Depending on the task (translation, summarization, Q&amp;A, etc.), use classical NLP metrics.</li>
+        <li>Still limited for open-ended generation.</li>
+      </ul>
+    </li>
+  </ul>
 
-These measure how well the LLM performs on language tasks, independent of downstream applications.
+  <hr>
 
-- **Perplexity / Log-likelihood**  
-  - Measures how well the model predicts text sequences.  
-  - Lower perplexity = better next-token prediction.  
-  - Mostly used in research/pretraining; not always aligned with human judgment.  
+  <h2>2. Extrinsic Evaluation (Task-Oriented)</h2>
+  <p>These measure how well the model helps in real applications.</p>
+  <ul>
+    <li><strong>Human-in-the-loop Evaluation</strong>
+      <ul>
+        <li>Experts or crowdworkers rate outputs for <strong>fluency, coherence, relevance, helpfulness, factuality, creativity</strong>.</li>
+        <li>Example: pairwise preference comparisons (used by OpenAI’s RLHF).</li>
+      </ul>
+    </li>
+    <li><strong>Task Success Rate</strong>
+      <ul>
+        <li>In RAG, chatbot assistants, or recommender systems → measure whether the model helps users complete a task.</li>
+      </ul>
+    </li>
+    <li><strong>End-to-End Metrics</strong>
+      <ul>
+        <li>For code generation → unit test pass rate.</li>
+        <li>For customer support bots → resolution rate, customer satisfaction.</li>
+        <li>For search → click-through rate or engagement metrics.</li>
+      </ul>
+    </li>
+  </ul>
 
-- **Benchmark Datasets**  
-  - Standard test suites like **MMLU, BIG-Bench, HellaSwag, ARC, TruthfulQA**, etc.  
-  - Cover reasoning, knowledge, commonsense, coding, and factual accuracy.  
+  <hr>
 
-- **Accuracy / F1 / BLEU / ROUGE / METEOR / BERTScore**  
-  - Depending on the task (translation, summarization, Q&A, etc.), use classical NLP metrics.  
-  - Still limited for open-ended generation.  
+  <h2>3. Robustness &amp; Reliability</h2>
+  <p>Beyond raw accuracy, LLMs must be safe, fair, and consistent.</p>
+  <ul>
+    <li><strong>Adversarial Robustness</strong>
+      <ul>
+        <li>Test on adversarial prompts, jailbreak attempts, and noisy inputs.</li>
+      </ul>
+    </li>
+    <li><strong>Bias &amp; Fairness</strong>
+      <ul>
+        <li>Evaluate outputs for stereotypes, demographic biases, or unfair treatment.</li>
+      </ul>
+    </li>
+    <li><strong>Factuality &amp; Hallucination Detection</strong>
+      <ul>
+        <li>Use automated tools (e.g., fact-checking pipelines, retrieval-augmented evaluators) to measure truthfulness.</li>
+      </ul>
+    </li>
+    <li><strong>Consistency</strong>
+      <ul>
+        <li>Ask the same question in different forms → see if answers are stable.</li>
+      </ul>
+    </li>
+  </ul>
 
----
+  <hr>
 
-## 2. Extrinsic Evaluation (Task-Oriented)
+  <h2>4. Efficiency &amp; Scalability</h2>
+  <p>Performance isn’t just quality of answers—it’s also cost and latency.</p>
+  <ul>
+    <li><strong>Inference Speed</strong> (latency, throughput)</li>
+    <li><strong>Memory/Compute efficiency</strong></li>
+    <li><strong>Energy cost per query</strong></li>
+  </ul>
 
-These measure how well the model helps in real applications.
+  <hr>
 
-- **Human-in-the-loop Evaluation**  
-  - Experts or crowdworkers rate outputs for **fluency, coherence, relevance, helpfulness, factuality, creativity**.  
-  - Example: pairwise preference comparisons (used by OpenAI’s RLHF).  
-
-- **Task Success Rate**  
-  - In RAG, chatbot assistants, or recommender systems → measure whether the model helps users complete a task.  
-
-- **End-to-End Metrics**  
-  - For code generation → unit test pass rate.  
-  - For customer support bots → resolution rate, customer satisfaction.  
-  - For search → click-through rate or engagement metrics.  
-
----
-
-## 3. Robustness & Reliability
-
-Beyond raw accuracy, LLMs must be safe, fair, and consistent.
-
-- **Adversarial Robustness**  
-  - Test on adversarial prompts, jailbreak attempts, and noisy inputs.  
-
-- **Bias & Fairness**  
-  - Evaluate outputs for stereotypes, demographic biases, or unfair treatment.  
-
-- **Factuality & Hallucination Detection**  
-  - Use automated tools (e.g., fact-checking pipelines, retrieval-augmented evaluators) to measure truthfulness.  
-
-- **Consistency**  
-  - Ask the same question in different forms → see if answers are stable.  
-
----
-
-## 4. Efficiency & Scalability
-
-Performance isn’t just quality of answers—it’s also cost and latency.
-
-- **Inference Speed** (latency, throughput)  
-- **Memory/Compute efficiency**  
-- **Energy cost per query**  
-
----
-
-## 5. Advanced Evaluation Methods
-
-- **LLM-as-a-Judge**  
-  - Use another strong LLM (like GPT-4) to evaluate model outputs (pairwise ranking, scoring).  
-  - Scales better than human eval but must be calibrated.  
-
-- **Automatic Red-Teaming**  
-  - Systematic probing of harmful outputs (bias, toxicity, unsafe advice).  
-
-- **Multi-Dimensional Rubrics**  
-  - Some evaluations (e.g., MT-Bench, Chatbot Arena) use structured rubrics: **helpfulness, harmlessness, truthfulness**.  
-
+  <h2>5. Advanced Evaluation Methods</h2>
+  <ul>
+    <li><strong>LLM-as-a-Judge</strong>
+      <ul>
+        <li>Use another strong LLM (like GPT-4) to evaluate model outputs (pairwise ranking, scoring).</li>
+        <li>Scales better than human eval but must be calibrated.</li>
+      </ul>
+    </li>
+    <li><strong>Automatic Red-Teaming</strong>
+      <ul>
+        <li>Systematic probing of harmful outputs (bias, toxicity, unsafe advice).</li>
+      </ul>
+    </li>
+    <li><strong>Multi-Dimensional Rubrics</strong>
+      <ul>
+        <li>Some evaluations (e.g., MT-Bench, Chatbot Arena) use structured rubrics: <strong>helpfulness, harmlessness, truthfulness</strong>.</li>
+      </ul>
+    </li>
+  </ul>
     
     </p>"
   },
