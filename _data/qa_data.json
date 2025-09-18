@@ -1,20 +1,11 @@
 {
 "llm": [
   {"question": "How can you evaluate the performance of large language models?",
-  "answer": "<p> <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Evaluating the Performance of LLMs</title>
-</head>
-<body>
+  "answer": "<p>
   <h1>Evaluating the Performance of Large Language Models (LLMs)</h1>
-
-  <p>
     Evaluating the performance of <strong>Large Language Models (LLMs)</strong> is tricky because they operate in open-ended domains,
     but there are well-established approaches. Evaluation can be <strong>quantitative</strong> (automatic metrics) or
     <strong>qualitative</strong> (human judgment), depending on the use case. Here’s a structured overview:
-  </p>
 
   <hr>
 
