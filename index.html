@@ -1,65 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI/ML Interview Prep</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .tab-content, .sub-tab-content {
-            display: none;
-        }
-        .tab-content.active, .sub-tab-content.active {
-            display: block;
-        }
-        .tab-btn.active {
-            border-bottom-color: #4f46e5;
-            color: #4f46e5;
-        }
-        .sub-tab-btn.active {
-            background-color: #4f46e5;
-            color: white;
-        }
-        .prose table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .prose th, .prose td {
-            border: 1px solid #e5e7eb;
-            padding: 0.75rem 1rem;
-        }
-        .prose th {
-            background-color: #f9fafb;
-            font-weight: 600;
-        }
-        .prose code {
-            background-color: #eef2ff;
-            color: #4338ca;
-            padding: 0.2rem 0.4rem;
-            border-radius: 0.25rem;
-            font-size: 0.9em;
-        }
-        .prose pre {
-            background-color: #1f2937;
-            color: #d1d5db;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-        }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+---
+layout: default
+title: Accueil
+---
 
-    <div class="container mx-auto px-4 py-8 md:py-12">
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900">AI & Cloud Interview Hub</h1>
-            <p class="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">Your comprehensive guide to nailing technical interviews in LLMs, Generative AI, and AWS.</p>
-        </header>
+<div class="container mx-auto px-4 flex flex-col md:flex-row gap-8 lg:gap-12">
+    <!-- Left Sidebar Navigation -->
+    <aside class="w-full md:w-1/4 lg:w-1/5">
+        <div id="left-nav" class="sticky top-8">
+            <!-- Navigation links will be dynamically inserted here -->
+        </div>
+    </aside>
 
+    <!-- Right Main Content -->
+    <main class="w-full md:w-3/4 lg:w-4/5">
         <!-- Main Tabs -->
         <div class="border-b border-gray-200 mb-6">
             <nav class="-mb-px flex space-x-6" aria-label="Tabs">
@@ -74,128 +27,133 @@
             <!-- LLM Content -->
             <div id="llm" class="tab-content active prose max-w-none">
                 <div id="llm-content" class="space-y-8">
-                    <!-- Q&A will be dynamically inserted here -->
+                    <!-- Q&A will be pre-rendered by Jekyll here -->
                 </div>
             </div>
 
             <!-- GenAI Content -->
             <div id="genai" class="tab-content">
-                <!-- Sub-tabs for GenAI -->
                 <div class="mb-6 flex items-center justify-center space-x-2 rounded-lg bg-indigo-100 p-1">
                     <button class="sub-tab-btn w-full rounded-md py-2 px-4 text-sm font-medium text-indigo-700 transition-colors duration-200 active" data-subtab="rag">RAG</button>
                     <button class="sub-tab-btn w-full rounded-md py-2 px-4 text-sm font-medium text-indigo-700 transition-colors duration-200" data-subtab="agentic">Agentic Workflows</button>
                 </div>
-
-                <!-- Sub-tab Content -->
                 <div id="sub-tab-content-container" class="prose max-w-none">
-                    <!-- RAG Content -->
-                    <div id="rag" class="sub-tab-content active">
-                        <div id="rag-content" class="space-y-8">
-                            <!-- Q&A will be dynamically inserted here -->
-                        </div>
-                    </div>
-                    <!-- Agentic Content -->
-                    <div id="agentic" class="sub-tab-content">
-                         <div id="agentic-content" class="space-y-8">
-                            <!-- Q&A will be dynamically inserted here -->
-                        </div>
-                    </div>
+                    <div id="rag" class="sub-tab-content active"><div id="rag-content" class="space-y-8"></div></div>
+                    <div id="agentic" class="sub-tab-content"><div id="agentic-content" class="space-y-8"></div></div>
                 </div>
             </div>
 
             <!-- AWS Content -->
             <div id="aws" class="tab-content prose max-w-none">
-                <div id="aws-content" class="space-y-8">
-                    <!-- Q&A will be dynamically inserted here -->
-                </div>
+                <div id="aws-content" class="space-y-8"></div>
             </div>
         </div>
-    </div>
+    </main>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mainTabs = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            const subTabs = document.querySelectorAll('.sub-tab-btn');
-            const subTabContents = document.querySelectorAll('.sub-tab-content');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const mainTabs = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const subTabs = document.querySelectorAll('.sub-tab-btn');
+        const subTabContents = document.querySelectorAll('.sub-tab-content');
+        const navContainer = document.getElementById('left-nav');
+        
+        // Jekyll injecte les données JSON dans cette variable globale
+        const allData = {{ site.data.qa_data | jsonify }};
 
-            // Function to create a Q&A card
-            function createQACard(qaItem) {
-                const card = document.createElement('div');
-                card.className = 'p-6 bg-white rounded-lg shadow-sm border border-gray-200';
-                card.innerHTML = `
-                    <h3 class="text-xl font-semibold mb-3">${qaItem.question}</h3>
-                    <div>${qaItem.answer}</div>
-                `;
-                return card;
+        function createSlug(text) {
+            return 'qa-' + text.toLowerCase().replace(/\s+/g, '-').replace(/[?,.:']/g, '');
+        }
+
+        function createQACard(qaItem) {
+            const slug = createSlug(qaItem.question);
+            const card = document.createElement('div');
+            card.id = slug;
+            card.className = 'p-6 bg-white rounded-lg shadow-sm border border-gray-200 scroll-mt-8';
+            card.innerHTML = `<h3 class="text-xl font-semibold mb-3">${qaItem.question}</h3><div>${qaItem.answer}</div>`;
+            return card;
+        }
+
+        function renderNavLinks(data, title) {
+            navContainer.innerHTML = '';
+            const list = document.createElement('ul');
+            list.className = 'space-y-2';
+            const heading = document.createElement('h3');
+            heading.className = 'text-lg font-semibold text-gray-800 mb-3 pb-2 border-b';
+            heading.textContent = title;
+            navContainer.appendChild(heading);
+
+            data.forEach(qaItem => {
+                const slug = createSlug(qaItem.question);
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#${slug}" class="text-sm text-gray-600 hover:text-indigo-600 transition-colors duration-200 block">${qaItem.question}</a>`;
+                list.appendChild(listItem);
+            });
+            navContainer.appendChild(list);
+        }
+
+        function renderContent(container, data) {
+            container.innerHTML = '';
+            data.forEach(qaItem => {
+                container.appendChild(createQACard(qaItem));
+            });
+        }
+
+        function updateUI(mainTabId, subTabId = null) {
+            if (mainTabId === 'llm') {
+                renderContent(document.getElementById('llm-content'), allData.llm);
+                renderNavLinks(allData.llm, "Questions LLM");
+            } else if (mainTabId === 'aws') {
+                renderContent(document.getElementById('aws-content'), allData.aws);
+                renderNavLinks(allData.aws, "Questions AWS");
+            } else if (mainTabId === 'genai') {
+                const activeSubTab = subTabId || 'rag';
+                const data = allData.genai[activeSubTab];
+                const title = activeSubTab === 'rag' ? "Questions RAG" : "Workflows Agentiques";
+                const container = document.getElementById(`${activeSubTab}-content`);
+                renderContent(container, data);
+                renderNavLinks(data, title);
             }
-            
-            // Function to render content into a container
-            function renderContent(container, data) {
-                container.innerHTML = ''; // Clear existing content
-                data.forEach(qaItem => {
-                    const card = createQACard(qaItem);
-                    container.appendChild(card);
-                });
-            }
+        }
 
-            // Fetch data and populate tabs
-            async function loadData() {
-                try {
-                    const response = await fetch('./qa-data.json');
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const data = await response.json();
+        function initializeApp() {
+            // Le rendu initial se fait maintenant via le JS qui lit la variable 'allData'
+            updateUI('llm'); 
+        }
 
-                    // Populate content containers
-                    renderContent(document.getElementById('llm-content'), data.llm);
-                    renderContent(document.getElementById('rag-content'), data.genai.rag);
-                    renderContent(document.getElementById('agentic-content'), data.genai.agentic);
-                    renderContent(document.getElementById('aws-content'), data.aws);
+        function switchMainTab(tabId) {
+            mainTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId));
+            tabContents.forEach(content => content.classList.toggle('active', content.id === tabId));
+        }
 
-                } catch (error) {
-                    console.error("Could not load Q&A data:", error);
-                    document.getElementById('llm-content').innerHTML = `<p class="text-red-500">Error loading content. Please check the console.</p>`;
+        function switchSubTab(subTabId) {
+            subTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.subtab === subTabId));
+            subTabContents.forEach(content => content.classList.toggle('active', content.id === subTabId));
+        }
+
+        mainTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+                switchMainTab(tabId);
+                if (tabId === 'genai') {
+                    const activeSubTab = document.querySelector('.sub-tab-btn.active').dataset.subtab;
+                    updateUI(tabId, activeSubTab);
+                } else {
+                    updateUI(tabId);
                 }
-            }
-
-
-            function switchMainTab(tabId) {
-                mainTabs.forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.tab === tabId);
-                });
-
-                tabContents.forEach(content => {
-                    content.classList.toggle('active', content.id === tabId);
-                });
-            }
-
-            function switchSubTab(subTabId) {
-                subTabs.forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.subtab === subTabId);
-                });
-
-                subTabContents.forEach(content => {
-                    content.classList.toggle('active', content.id === subTabId);
-                });
-            }
-
-            mainTabs.forEach(tab => {
-                tab.addEventListener('click', () => switchMainTab(tab.dataset.tab));
             });
-
-            subTabs.forEach(tab => {
-                tab.addEventListener('click', () => switchSubTab(tab.dataset.subtab));
-            });
-
-            // Initial setup
-            loadData();
-            switchMainTab('llm');
-            switchSubTab('rag');
         });
-    </script>
-</body>
-</html>
+
+        subTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const subTabId = tab.dataset.subtab;
+                switchSubTab(subTabId);
+                updateUI('genai', subTabId);
+            });
+        });
+
+        initializeApp();
+    });
+</script>
 
