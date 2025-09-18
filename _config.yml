@@ -1,4 +1,5 @@
 # Fichier de configuration de base pour Jekyll
 title: AI & Cloud Q&A Hub
 description: Votre guide complet pour des questions techniques sur les LLMs, l'IA Générative et AWS.
+markdown: kramdown
 markdown: GFM
