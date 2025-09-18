@@ -1,5 +1,111 @@
 {
 "llm": [
+  {"question": "How can you evaluate the performance of large language models?",
+  "answer": "<p> NLP: Extrinsic evaluation and Intrinsic evaluation.
+    Evaluating the performance of Large Language Models (LLMs) is tricky because they operate in open-ended domains, but there are well-established approaches. Evaluation can be quantitative (automatic metrics) or qualitative (human judgment), depending on the use case. Here’s a structured overview:
+
+1. Intrinsic Evaluation (Direct Model Performance)
+
+These measure how well the LLM performs on language tasks, independent of downstream applications.
+
+Perplexity / Log-likelihood
+
+Measures how well the model predicts text sequences.
+
+Lower perplexity = better next-token prediction.
+
+Mostly used in research/pretraining; not always aligned with human judgment.
+
+Benchmark Datasets
+
+Standard test suites like MMLU, BIG-Bench, HellaSwag, ARC, TruthfulQA, etc.
+
+Cover reasoning, knowledge, commonsense, coding, and factual accuracy.
+
+Accuracy / F1 / BLEU / ROUGE / METEOR / BERTScore
+
+Depending on the task (translation, summarization, Q&A, etc.), use classical NLP metrics.
+
+Still limited for open-ended generation.
+
+2. Extrinsic Evaluation (Task-Oriented)
+
+These measure how well the model helps in real applications.
+
+Human-in-the-loop Evaluation
+
+Experts or crowdworkers rate outputs for fluency, coherence, relevance, helpfulness, factuality, creativity.
+
+Example: Pairwise preference comparisons (used by OpenAI’s RLHF).
+
+Task Success Rate
+
+In retrieval-augmented generation (RAG), chatbot assistants, or recommender systems → measure whether the model helps users complete a task.
+
+End-to-End Metrics
+
+For code generation → unit test pass rate.
+
+For customer support bots → resolution rate, customer satisfaction.
+
+For search → click-through rate or engagement metrics.
+
+3. Robustness & Reliability
+
+Beyond raw accuracy, LLMs must be safe, fair, and consistent.
+
+Adversarial Robustness
+
+Test on adversarial prompts, jailbreak attempts, and noisy inputs.
+
+Bias & Fairness
+
+Evaluate outputs for stereotypes, demographic biases, or unfair treatment.
+
+Factuality & Hallucination Detection
+
+Use automated tools (e.g., fact-checking pipelines, retrieval-augmented evaluators) to measure truthfulness.
+
+Consistency
+
+Ask the same question in different forms → see if answers are stable.
+
+4. Efficiency & Scalability
+
+Performance isn’t just quality of answers—it’s also cost and latency.
+
+Inference Speed (latency, throughput)
+
+Memory/Compute efficiency
+
+Energy cost per query
+
+5. Advanced Evaluation Methods
+
+LLM-as-a-Judge
+
+Use another strong LLM (like GPT-4) to evaluate model outputs (pairwise ranking, scoring).
+
+Scales better than human eval but must be calibrated.
+
+Automatic Red-Teaming
+
+Systematic probing of harmful outputs (bias, toxicity, unsafe advice).
+
+Multi-Dimensional Rubrics
+
+Some evaluations (e.g., MT-Bench, Chatbot Arena) use structured rubrics: helpfulness, harmlessness, truthfulness.
+
+✅ In practice:
+
+During research: use benchmarks + perplexity.
+
+For real-world apps: use task success, human evaluation, and safety metrics.
+
+At scale: combine automatic evaluation + human spot-checking + LLM-as-a-judge.
+    
+    </p>"
+  },
 {
 "question": "What is the difference between GPT, BERT, and T5?",
 "answer": "<p>These three models are all based on the Transformer architecture but differ fundamentally in their design and purpose.</p><h4 class='font-semibold mt-4'>1. Core Architecture:</h4><ul><li><strong>GPT (Generative Pre-trained Transformer):</strong> A <strong>decoder-only</strong> model. It's designed for generating text by predicting the next word in a sequence based on the previous words (left-to-right context).</li><li><strong>BERT (Bidirectional Encoder Representations from Transformers):</strong> An <strong>encoder-only</strong> model. It excels at understanding text by considering the full context of a word, looking at both words before and after it simultaneously.</li><li><strong>T5 (Text-to-Text Transfer Transformer):</strong> Uses a full <strong>encoder-decoder</strong> architecture. It's a versatile model that frames every NLP task as a \"text-to-text\" problem, where an input text is transformed into a target text.</li></ul><h4 class='font-semibold mt-4'>2. Pre-training Objectives:</h4><ul><li><strong>GPT:</strong> Trained on Causal Language Modeling—predicting the next token in a sequence.</li><li><strong>BERT:</strong> Trained on two tasks: Masked Language Modeling (predicting a hidden word in a sentence) and Next Sentence Prediction (determining if two sentences are sequential).</li><li><strong>T5:</strong> Trained with a denoising objective. Spans of text in the input are corrupted (masked), and the model learns to reconstruct the original, uncorrupted text.</li></ul><h4 class='font-semibold mt-4'>3. Use Cases:</h4><div class='overflow-x-auto'><table><thead><tr><th>Feature</th><th>GPT</th><th>BERT</th><th>T5</th></tr></thead><tbody><tr><td><strong>Primary Strength</strong></td><td>Text Generation</td><td>Text Understanding</td><td>Versatility & Transfer Learning</td></tr><tr><td><strong>Best For</strong></td><td>Creative writing, chatbots, content creation</td><td>Sentiment analysis, Q&A, search queries</td><td>Summarization, translation, multi-task applications</td></tr></tbody></table></div><p class='mt-4'>In short: use <strong>GPT</strong> to write, <strong>BERT</strong> to read and understand, and <strong>T5</strong> for a flexible tool that can do both across many different tasks.</p>"
