@@ -4,11 +4,11 @@
   "answer": "<p> NLP: Extrinsic evaluation and Intrinsic evaluation.
     Evaluating the performance of Large Language Models (LLMs) is tricky because they operate in open-ended domains, but there are well-established approaches. Evaluation can be quantitative (automatic metrics) or qualitative (human judgment), depending on the use case. Here’s a structured overview:
 
-1. Intrinsic Evaluation (Direct Model Performance)
+**1. Intrinsic Evaluation (Direct Model Performance)** 
 
-These measure how well the LLM performs on language tasks, independent of downstream applications.
+These measure how well the LLM performs on language tasks, independent of downstream applications.  
 
-Perplexity / Log-likelihood
+**Perplexity / Log-likelihood**
 
 Measures how well the model predicts text sequences.
 
